@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
+
 * {
   box-sizing: border-box;
 }
@@ -7,7 +9,130 @@ body {
   padding: 0;
 }
 
+.title {
+  font-family: 'Caveat';
+  font-size: 3rem;
+  color: rgb(223, 145, 0);
+}
+
 .toolbox-container {
   height: 5rem;
-  background-color: #464646;
+  background-color: #fff475;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.toolbox-container > * {
+  margin-left: 4rem;
+}
+
+.toolbox-primary-container {
+  height: 3.5rem;
+  width: 18rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 0.7rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.color {
+  height: 2.3rem;
+  width: 2.3rem;
+  border-radius: 50%;
+  border: 0px solid rgba(255, 255, 255, 0.4);
+  transition: 0.2s;
+}
+
+.color:hover {
+  border: 5px solid rgba(255, 255, 255, 0.4);
+}
+
+.lightpurple {
+  background-color: #cbc3e3;
+}
+
+.lightpink {
+  background-color: lightcoral;
+}
+
+.lightblue {
+  background-color: lightblue;
+}
+
+.lightgreen {
+  background-color: lightgreen;
+}
+
+.black {
+  background-color: black;
+}
+
+.action-btn-container {
+  height: 3.5rem;
+  width: 8rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 0.7rem;
+  display: flex;
+  transition: 0.2s;
+  margin-right: 4rem;
+}
+
+.action-btn-container > * {
+  font-size: 1.4rem;
+  font-weight: 900;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.action-btn-container > .add-btn:hover {
+  background-color: #4f5a89;
+  color: #fff;
+  border-radius: 0.7rem;
+}
+
+.action-btn-container > .remove-btn:hover {
+  background-color: #ff4949;
+  color: #fff;
+  border-radius: 0.7rem;
+}
+
+.modal-container {
+  position: absolute;
+  height: 50vh;
+  width: 45vw;
+  top: 30%;
+  left: 25%;
+  background-color: #fff475;
+  display: flex;
+  border-radius: 0.7rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.toolbox-secondary-container {
+  height: 100%;
+  width: 4rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-top-right-radius: 0.7rem;
+  border-bottom-right-radius: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.textarea-container {
+  border-top-left-radius: 0.7rem;
+  border-bottom-left-radius: 0.7rem;
+  padding: 1rem;
+  height: 100%;
+  width: 92%;
+  resize: none;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  color: #4f5a89;
 }
