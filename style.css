@@ -128,19 +128,14 @@ body {
   top: 30%;
   left: 25%;
   background-color: #fff475;
-  display: none;
   border-radius: 0.7rem;
   box-shadow: 0 0 80px 12px rgba(170, 156, 4, 0.9);
-  opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 0.3s transform 0.3s;
+  display: none;
   z-index: 2;
 }
 
 .modal-container.active {
   display: flex;
-  opacity: 1;
-  transform: scale(1);
 }
 
 .modal-title {
@@ -173,6 +168,7 @@ body {
 }
 
 .card-container {
+  position: relative;
   width: 15rem;
   height: 12rem;
   border-radius: 0.7rem;
@@ -190,4 +186,14 @@ body {
 }
 
 .card-body {
+}
+
+.card-lock {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.fa-unlock {
+  color: cornflowerblue;
 }
