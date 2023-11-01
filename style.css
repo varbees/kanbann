@@ -7,6 +7,8 @@
 body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+  background-color: #ccc;
 }
 
 .title {
@@ -93,13 +95,31 @@ body {
 }
 
 .action-btn-container > .add-btn:hover {
+  background-color: #5e6ba5;
+  color: #fff;
+  border-radius: 0.7rem;
+}
+
+.action-btn-container > .add-btn:active {
   background-color: #4f5a89;
   color: #fff;
   border-radius: 0.7rem;
 }
 
 .action-btn-container > .remove-btn:hover {
+  background-color: #f05b5b;
+  color: #fff;
+  border-radius: 0.7rem;
+}
+
+.action-btn-container > .remove-btn:active {
   background-color: #ff4949;
+  color: #fff;
+  border-radius: 0.7rem;
+}
+
+.active-remove {
+  background-color: #f05b5b;
   color: #fff;
   border-radius: 0.7rem;
 }
@@ -223,4 +243,36 @@ body {
 
 .fa-unlock {
   color: cornflowerblue;
+}
+
+.toaster {
+  position: absolute;
+  bottom: 20px;
+  right: -100%;
+  padding: 0.7rem 1.7rem;
+  border-radius: 0.7rem 0 0 0.7rem;
+  font-size: 18px;
+  font-weight: 500;
+  display: none;
+  background-color: red;
+  color: #fff;
+  animation: slideIn 0.5s forwards, slideOut 0.5s forwards 2s;
+}
+
+@keyframes slideIn {
+  from {
+    right: -100%;
+  }
+  to {
+    right: 0;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    right: 0;
+  }
+  to {
+    right: -100%;
+  }
 }

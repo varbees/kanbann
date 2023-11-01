@@ -4,8 +4,10 @@ const textAreaContainer = document.querySelector('.textarea-container');
 const mainContainer = document.querySelector('.main-container');
 const colorBtns = document.querySelectorAll('.color');
 const addBtn = document.querySelector('.add-btn');
+const removeBtn = document.querySelector('.remove-btn');
 const lockIcon = document.getElementById('lock-icon');
 const saveIcon = document.querySelector('.save-mark');
+const toaster = document.querySelector('.toaster');
 
 // console.log(refId);
 let currrentActiveColor = '#fff475';
@@ -34,6 +36,26 @@ let isModalTaskOpen = false;
 addBtn.addEventListener('click', () =>
   !isModalTaskOpen ? displayModal() : hideModal()
 );
+
+let deleteMode = false;
+removeBtn.addEventListener('click', () => {
+  deleteMode = !deleteMode;
+
+  if (deleteMode) {
+    showToaster('DELETE MODE ACTIVATED', 'red', 3000);
+    removeBtn.classList.add('active-remove');
+  } else {
+    showToaster('DELETE MODE DEACTIVATED', 'green', 3000);
+    removeBtn.classList.remove('active-remove');
+  }
+});
+
+mainContainer.addEventListener('click', e => {
+  if (deleteMode) {
+    const cardContainer = e.target.closest('.ticket-container');
+    if (cardContainer) mainContainer.removeChild(cardContainer);
+  }
+});
 
 modalOverlay.addEventListener('click', () => hideModal());
 
@@ -89,6 +111,7 @@ function createCard(cardId, cardType, cardValue) {
   if (cardType === 'black' || cardType === 'royalblue') {
     ticketContainer.style.color = 'white';
   }
+  showToaster(`#${cardId} created successfully`, 'green', 2500);
 }
 
 function cleanupOnSave() {
@@ -123,4 +146,13 @@ function hideModal() {
   modalContainer.classList.remove('active');
   modalOverlay.style.display = 'none';
   isModalTaskOpen = false;
+}
+
+function showToaster(message, color, duration) {
+  toaster.textContent = message;
+  toaster.style.backgroundColor = color;
+  toaster.style.display = 'block';
+  setTimeout(() => {
+    toaster.style.display = 'none';
+  }, duration);
 }
