@@ -174,7 +174,7 @@ body {
   border: none;
   outline: none;
   font-size: 1rem;
-  background-color: #fff475;
+  background-color: darkgoldenrod;
   color: #fff;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -217,7 +217,13 @@ body {
 }
 
 .card-color {
-  height: 1rem;
+  height: 1.2rem;
+  width: 1.2rem;
+  position: absolute;
+  bottom: 40px;
+  right: 8px;
+  border-radius: 50%;
+  border: 2px solid cornflowerblue;
 }
 
 .card-id {
@@ -241,6 +247,10 @@ body {
   right: 10px;
 }
 
+.fa-lock {
+  color: white;
+}
+
 .fa-unlock {
   color: cornflowerblue;
 }
@@ -254,6 +264,7 @@ body {
   font-size: 18px;
   font-weight: 500;
   display: none;
+  z-index: 4;
   background-color: red;
   color: #fff;
   animation: slideIn 0.5s forwards, slideOut 0.5s forwards 2s;

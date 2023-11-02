@@ -5,7 +5,6 @@ const mainContainer = document.querySelector('.main-container');
 const colorBtns = document.querySelectorAll('.color');
 const addBtn = document.querySelector('.add-btn');
 const removeBtn = document.querySelector('.remove-btn');
-const lockIcon = document.getElementById('lock-icon');
 const saveIcon = document.querySelector('.save-mark');
 const toaster = document.querySelector('.toaster');
 
@@ -63,55 +62,70 @@ modalContainer.addEventListener('keydown', evt => {
   if (evt.shiftKey) {
     if (evt.key === 'S' || evt.key === 'S') {
       handleCreateCard();
-      cleanupOnSave();
     }
+  }
+
+  if (evt.key === 'Escape') {
+    hideModal();
   }
 });
 
 saveIcon.addEventListener('click', evt => {
   handleCreateCard();
-  cleanupOnSave();
 });
-
-// let isLocked = true;
-// lockIcon &&
-//   lockIcon.addEventListener('click', () => {
-//     if (isLocked) {
-//       lockIcon.classList.remove('fa-lock');
-//       lockIcon.classList.add('fa-unlock');
-//       isLocked = false;
-//     } else {
-//       lockIcon.classList.add('fa-lock');
-//       lockIcon.classList.remove('fa-unlock');
-//       isLocked = true;
-//     }
-//   });
 
 const handleCreateCard = () => {
   textAreaValue = textAreaContainer.value;
   const cardId = shuffle(getRandomId());
-  createCard(cardId, currrentActiveColor, textAreaValue.trim());
-  cleanupOnSave();
+  console.log(currrentActiveColor);
+  if (textAreaValue.trim().length > 0) {
+    createCard(cardId, currrentActiveColor, textAreaValue.trim());
+    cleanupOnSave();
+  } else {
+    showToaster('Add some notes before saving...', 'orange', 3000);
+    return;
+  }
 };
 
 function createCard(cardId, cardType, cardValue) {
-  console.log(cardId, cardType, cardValue.trim());
   const ticketContainer = document.createElement('div');
   ticketContainer.classList.add('ticket-container');
-  ticketContainer.style.backgroundColor = colorMap[cardType] || '#fff475';
+  ticketContainer.style.backgroundColor = colorMap[cardType] || 'darkgoldenrod';
+  ticketContainer.style.color = 'white';
 
   ticketContainer.innerHTML = `
-    <div class="card-container ${cardType}">
+    <div class="card-container ">
       <div class="card-id">#${cardId}</div>
       <div class="card-body">${cardValue}</div>
+      <div class="card-color" title="Change card color"></div>
       <div class="card-lock"><i id="lock-icon" class="fa-solid fa-lock"></i></div>
     </div>
   `;
-  mainContainer.appendChild(ticketContainer);
-  if (cardType === 'black' || cardType === 'royalblue') {
-    ticketContainer.style.color = 'white';
-  }
+
+  handleLock(ticketContainer);
+  changeCardColor(ticketContainer);
   showToaster(`#${cardId} created successfully`, 'green', 2500);
+
+  mainContainer.appendChild(ticketContainer);
+}
+
+const colors = Object.values(colorMap);
+function changeCardColor(divForColorChange) {
+  const cardColor = divForColorChange.querySelector('.card-color');
+
+  let currentColorIndex = colors.findIndex(
+    color => color === divForColorChange.style.backgroundColor
+  );
+  let nextColorIndex = currentColorIndex === -1 ? 0 : currentColorIndex + 1;
+
+  cardColor.addEventListener('click', () => {
+    const currentColor = colors[currentColorIndex];
+    const nextColor = colors[nextColorIndex];
+    cardColor.style.backgroundColor = nextColor;
+    divForColorChange.style.backgroundColor = currentColor;
+    currentColorIndex = nextColorIndex;
+    nextColorIndex = (nextColorIndex + 1) % colors.length;
+  });
 }
 
 function cleanupOnSave() {
@@ -119,6 +133,28 @@ function cleanupOnSave() {
   isModalTaskOpen = false;
   textAreaContainer.value = '';
   currrentActiveColor = '#fff475';
+}
+
+let isEditable = false;
+function handleLock(divToBeLocked) {
+  const lockIcon = divToBeLocked.querySelector('.card-lock > i');
+  const cardBody = divToBeLocked.querySelector('.card-body');
+
+  lockIcon.addEventListener('click', () => {
+    if (!isEditable) {
+      lockIcon.classList.remove('fa-lock');
+      lockIcon.classList.add('fa-unlock');
+      cardBody.setAttribute('contenteditable', 'true');
+      cardBody.focus();
+      isEditable = true;
+    } else {
+      lockIcon.classList.add('fa-lock');
+      lockIcon.classList.remove('fa-unlock');
+      cardBody.setAttribute('contenteditable', 'false');
+      isEditable = false;
+    }
+    console.log('isEditable' + isEditable);
+  });
 }
 
 const getRandomId = () => Math.floor(10000 + Math.random() * 9000);
@@ -139,6 +175,7 @@ function removeAllTickets() {
 function displayModal() {
   modalOverlay.style.display = 'block';
   modalContainer.classList.add('active');
+  textAreaContainer.focus();
   isModalTaskOpen = true;
 }
 
