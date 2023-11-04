@@ -226,12 +226,12 @@ body {
   bottom: 40px;
   right: 8px;
   border-radius: 50%;
-  border: 2px solid cornflowerblue;
+  border: 2px solid #fff;
   transition: background-color 0.1s ease-in;
 }
 
 .card-color:hover {
-  box-shadow: 0 0 10px 1px cornflowerblue;
+  box-shadow: 0 0 10px 1px #fff;
 }
 
 .card-id {
